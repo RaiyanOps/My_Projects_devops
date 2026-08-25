@@ -1,4 +1,3 @@
-import os
 class Branding:
     def __init__(self):
         self.environment = "prod"
@@ -21,11 +20,11 @@ class Branding:
 
     @property
     def icon_path(self):
-        return "public/ignite/ignite-logo@2x.png"
+        return "public/mytemplate/mytemplate-logo@2x.png"
 
     @property
     def svg_icon(self):
-        return "public/ignite/ignite-icon.svg"
+        return "public/mytemplate/mytemplate-icon.svg"
 
     @property
     def website_domain(self):
@@ -41,5 +40,5 @@ class Branding:
 
     @property
     def full_logo_path(self):
-        return "public/ignite/ignite-logo@2x.png"
+        return "public/mytemplate/mytemplate-logo@2x.png"
 

@@ -1,14 +1,21 @@
-FROM python:3
+FROM python:3.12.12-slim
 
-RUN apk add --update ca-certificates;
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
-RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-ONBUILD RUN pip install --no-cache-dir -r requirements.txt
-ONBUILD COPY . /usr/src/app
 
-CMD gunicorn -w 0.0.0.0:5000 wsgi:app
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN rm -rf /var/cache/apk/*
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
+
+COPY . .
 
 EXPOSE 5000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "wsgi:app"]

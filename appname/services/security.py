@@ -1,5 +1,7 @@
 import hashlib
+
 from itsdangerous import URLSafeTimedSerializer
+
 
 class Token:
     def init_app(self, app):
